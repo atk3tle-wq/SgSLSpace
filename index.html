@@ -1,0 +1,608 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>SS Sign Language Academy — Learn Singapore Sign Language</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@500;600;700;800&family=Source+Sans+3:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --teal-900:#16363F;
+    --teal-700:#1F4E5C;
+    --teal-600:#2C6575;
+    --amber-500:#E8A33D;
+    --amber-600:#CF8A22;
+    --mint-100:#E4EFEC;
+    --cream-50:#FAF8F5;
+    --ink-900:#1E2A2E;
+    --ink-600:#455457;
+    --line:#DDE5E3;
+    --white:#FFFFFF;
+    --radius:16px;
+    --font-scale:1;
+  }
+
+  *{box-sizing:border-box; margin:0; padding:0;}
+  html{scroll-behavior:smooth;}
+  body{
+    font-family:'Source Sans 3', sans-serif;
+    background:var(--cream-50);
+    color:var(--ink-900);
+    font-size:calc(18px * var(--font-scale));
+    line-height:1.65;
+    -webkit-font-smoothing:antialiased;
+  }
+  h1,h2,h3,h4{
+    font-family:'Poppins', sans-serif;
+    color:var(--teal-900);
+    line-height:1.25;
+    font-weight:700;
+  }
+  a{color:inherit;}
+  img{max-width:100%; display:block;}
+  .wrap{max-width:1120px; margin:0 auto; padding:0 24px;}
+  :focus-visible{outline:3px solid var(--amber-600); outline-offset:3px;}
+
+  /* ---------- Top utility bar ---------- */
+  .utility-bar{
+    background:var(--teal-900);
+    color:#fff;
+    font-size:calc(14px * var(--font-scale));
+    padding:8px 0;
+  }
+  .utility-bar .wrap{display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:8px;}
+  .font-controls{display:flex; align-items:center; gap:10px;}
+  .font-controls span{opacity:.85;}
+  .font-controls button{
+    background:rgba(255,255,255,.12);
+    border:1px solid rgba(255,255,255,.35);
+    color:#fff;
+    border-radius:8px;
+    width:34px; height:30px;
+    font-size:15px;
+    cursor:pointer;
+    font-family:'Source Sans 3', sans-serif;
+  }
+  .font-controls button:hover{background:rgba(255,255,255,.25);}
+
+  /* ---------- Header ---------- */
+  header{
+    background:var(--white);
+    border-bottom:1px solid var(--line);
+    position:sticky; top:0; z-index:50;
+  }
+  .nav-row{
+    display:flex; align-items:center; justify-content:space-between;
+    padding:16px 0;
+  }
+  .brand{display:flex; align-items:center; gap:12px; text-decoration:none;}
+  .brand-name{font-family:'Poppins',sans-serif; font-weight:700; font-size:calc(20px*var(--font-scale)); color:var(--teal-900); line-height:1.15;}
+  .brand-name small{display:block; font-family:'Source Sans 3',sans-serif; font-weight:500; font-size:calc(12px*var(--font-scale)); color:var(--ink-600); letter-spacing:.03em;}
+  nav ul{list-style:none; display:flex; gap:28px;}
+  nav a{
+    text-decoration:none; color:var(--ink-900); font-weight:600;
+    font-size:calc(16px*var(--font-scale));
+    padding:6px 2px; border-bottom:2px solid transparent;
+  }
+  nav a:hover{border-bottom-color:var(--amber-500);}
+  .nav-cta{
+    background:var(--amber-500); color:var(--teal-900); font-weight:700;
+    padding:10px 20px; border-radius:999px; text-decoration:none;
+    font-size:calc(15px*var(--font-scale));
+    white-space:nowrap;
+  }
+  .nav-cta:hover{background:var(--amber-600); color:#fff;}
+  .menu-toggle{display:none; background:none; border:none; font-size:26px; color:var(--teal-900); cursor:pointer;}
+
+  @media (max-width:860px){
+    nav ul{position:absolute; top:100%; left:0; right:0; background:#fff; flex-direction:column; gap:0; border-bottom:1px solid var(--line); display:none;}
+    nav.open ul{display:flex;}
+    nav ul li{border-top:1px solid var(--line);}
+    nav ul a{display:block; padding:14px 24px;}
+    .menu-toggle{display:block;}
+    .nav-cta{display:none;}
+  }
+
+  /* ---------- Hero ---------- */
+  .hero{
+    background:linear-gradient(180deg, var(--mint-100) 0%, var(--cream-50) 100%);
+    padding:64px 0 80px;
+    position:relative;
+    overflow:hidden;
+  }
+  .hero .wrap{display:grid; grid-template-columns:1.1fr .9fr; gap:56px; align-items:center;}
+  .eyebrow{
+    display:inline-flex; align-items:center; gap:8px;
+    background:#fff; border:1px solid var(--line);
+    padding:6px 14px; border-radius:999px;
+    font-size:calc(14px*var(--font-scale)); font-weight:600; color:var(--teal-700);
+    margin-bottom:20px;
+  }
+  .eyebrow::before{content:"●"; color:var(--amber-500); font-size:10px;}
+  .hero h1{font-size:calc(44px*var(--font-scale)); margin-bottom:20px; letter-spacing:-0.01em;}
+  .hero p.lead{font-size:calc(19px*var(--font-scale)); color:var(--ink-600); max-width:52ch; margin-bottom:32px;}
+  .hero-ctas{display:flex; gap:16px; flex-wrap:wrap;}
+  .btn-primary{
+    background:var(--teal-700); color:#fff; text-decoration:none;
+    padding:15px 30px; border-radius:999px; font-weight:700;
+    font-size:calc(16px*var(--font-scale));
+    display:inline-block;
+    box-shadow:0 6px 18px rgba(31,78,92,.25);
+  }
+  .btn-primary:hover{background:var(--teal-900);}
+  .btn-ghost{
+    background:transparent; color:var(--teal-900); text-decoration:none;
+    padding:15px 26px; border-radius:999px; font-weight:700; border:2px solid var(--teal-700);
+    font-size:calc(16px*var(--font-scale));
+    display:inline-block;
+  }
+  .btn-ghost:hover{background:var(--teal-700); color:#fff;}
+
+  .hero-art{
+    position:relative;
+    aspect-ratio:1/1;
+    display:flex; align-items:center; justify-content:center;
+  }
+  .hero-badge{
+    width:78%; aspect-ratio:1/1; border-radius:50%;
+    background:var(--teal-700);
+    display:flex; align-items:center; justify-content:center;
+    position:relative;
+    box-shadow:0 20px 50px rgba(22,54,63,.3);
+  }
+  .hero-badge svg{width:58%; height:58%;}
+  .float-chip{
+    position:absolute; background:#fff; border-radius:14px;
+    box-shadow:0 12px 30px rgba(22,54,63,.15);
+    padding:12px 16px; font-weight:700; font-size:calc(14px*var(--font-scale));
+    color:var(--teal-900); display:flex; align-items:center; gap:8px;
+  }
+  .float-chip .dot{width:8px; height:8px; border-radius:50%; background:var(--amber-500);}
+  .chip-1{top:6%; left:-4%;}
+  .chip-2{bottom:10%; right:-6%;}
+
+  /* ---------- Trust strip ---------- */
+  .trust-strip{background:var(--teal-900); padding:22px 0;}
+  .trust-strip .wrap{display:flex; justify-content:space-around; flex-wrap:wrap; gap:20px; color:#fff; font-family:'Poppins',sans-serif; font-weight:600; font-size:calc(15px*var(--font-scale)); text-align:center;}
+  .trust-strip span{opacity:.92;}
+
+  /* ---------- Section shared ---------- */
+  section{padding:80px 0;}
+  .section-head{max-width:640px; margin-bottom:48px;}
+  .section-head .kicker{color:var(--amber-600); font-weight:700; text-transform:uppercase; letter-spacing:.08em; font-size:calc(13px*var(--font-scale)); margin-bottom:10px; display:block;}
+  .section-head h2{font-size:calc(32px*var(--font-scale)); margin-bottom:14px;}
+  .section-head p{color:var(--ink-600); font-size:calc(17px*var(--font-scale));}
+
+  /* ---------- Belief ---------- */
+  .belief{background:var(--white);}
+  .belief .wrap{display:grid; grid-template-columns:.9fr 1.1fr; gap:56px; align-items:center;}
+  .belief-card{
+    background:var(--mint-100); border-radius:var(--radius);
+    padding:36px; border-left:6px solid var(--amber-500);
+  }
+  .belief-card p{font-size:calc(19px*var(--font-scale)); color:var(--teal-900); font-weight:600; line-height:1.6;}
+
+  /* ---------- Courses ---------- */
+  .courses{background:var(--cream-50);}
+  .course-grid{display:grid; grid-template-columns:repeat(4,1fr); gap:22px;}
+  .course-card{
+    background:#fff; border:1px solid var(--line); border-radius:var(--radius);
+    padding:28px 24px; display:flex; flex-direction:column; gap:14px;
+    transition:transform .15s ease, box-shadow .15s ease;
+  }
+  .course-card:hover{transform:translateY(-4px); box-shadow:0 16px 34px rgba(22,54,63,.12);}
+  .course-card.featured{border-color:var(--amber-500); border-width:2px; position:relative;}
+  .badge-pop{
+    position:absolute; top:-14px; left:24px; background:var(--amber-500); color:var(--teal-900);
+    font-size:calc(12px*var(--font-scale)); font-weight:800; padding:4px 12px; border-radius:999px;
+    letter-spacing:.03em;
+  }
+  .course-level{font-family:'Poppins',sans-serif; font-weight:700; color:var(--teal-900); font-size:calc(20px*var(--font-scale));}
+  .course-tag{font-size:calc(13px*var(--font-scale)); color:var(--amber-600); font-weight:700; text-transform:uppercase; letter-spacing:.05em;}
+  .course-card ul{list-style:none; display:flex; flex-direction:column; gap:8px; font-size:calc(15px*var(--font-scale)); color:var(--ink-600);}
+  .course-card li{padding-left:20px; position:relative;}
+  .course-card li::before{content:"✓"; position:absolute; left:0; color:var(--teal-600); font-weight:700;}
+  .course-card .cprice{font-family:'Poppins',sans-serif; font-weight:700; font-size:calc(17px*var(--font-scale)); color:var(--teal-900); margin-top:auto; padding-top:8px; border-top:1px dashed var(--line);}
+  .course-card a{
+    text-align:center; background:var(--teal-700); color:#fff; text-decoration:none;
+    padding:11px; border-radius:10px; font-weight:700; font-size:calc(15px*var(--font-scale));
+  }
+  .course-card a:hover{background:var(--teal-900);}
+  @media (max-width:980px){ .course-grid{grid-template-columns:1fr 1fr;} }
+  @media (max-width:600px){ .course-grid{grid-template-columns:1fr;} }
+
+  .levels-note{
+    margin-top:28px; background:var(--mint-100); border-radius:var(--radius);
+    padding:20px 24px; font-size:calc(15px*var(--font-scale)); color:var(--teal-900);
+    display:flex; gap:12px; align-items:flex-start;
+  }
+  .levels-note strong{font-family:'Poppins',sans-serif;}
+
+  /* ---------- Promotions ---------- */
+  .promo{background:var(--teal-700); color:#fff;}
+  .promo .section-head h2, .promo .section-head p{color:#fff;}
+  .promo .section-head p{color:#DCEAE7;}
+  .promo-grid{display:grid; grid-template-columns:1fr 1fr; gap:24px;}
+  .promo-card{
+    background:rgba(255,255,255,.08); border:1px solid rgba(255,255,255,.2);
+    border-radius:var(--radius); padding:32px;
+  }
+  .promo-amt{font-family:'Poppins',sans-serif; font-weight:800; font-size:calc(40px*var(--font-scale)); color:var(--amber-500); line-height:1;}
+  .promo-card h3{color:#fff; margin:12px 0 10px; font-size:calc(21px*var(--font-scale));}
+  .promo-card p{color:#DCEAE7; font-size:calc(15.5px*var(--font-scale));}
+  @media (max-width:760px){ .promo-grid{grid-template-columns:1fr;} }
+
+  /* ---------- FAQ ---------- */
+  .faq{background:var(--white);}
+  .faq-list{border-top:1px solid var(--line);}
+  .faq-item{border-bottom:1px solid var(--line);}
+  .faq-q{
+    width:100%; text-align:left; background:none; border:none; cursor:pointer;
+    padding:22px 4px; display:flex; justify-content:space-between; align-items:center; gap:16px;
+    font-family:'Poppins',sans-serif; font-weight:600; color:var(--teal-900);
+    font-size:calc(17px*var(--font-scale));
+  }
+  .faq-q .icon{
+    flex:none; width:28px; height:28px; border-radius:50%;
+    background:var(--mint-100); color:var(--teal-700);
+    display:flex; align-items:center; justify-content:center; font-size:18px; font-weight:700;
+    transition:transform .2s ease;
+  }
+  .faq-item.open .faq-q .icon{transform:rotate(45deg); background:var(--amber-500); color:#fff;}
+  .faq-a{max-height:0; overflow:hidden; transition:max-height .25s ease;}
+  .faq-a p{padding:0 4px 22px; color:var(--ink-600); font-size:calc(16px*var(--font-scale)); max-width:70ch;}
+
+  /* ---------- CTA ---------- */
+  .cta{background:linear-gradient(135deg, var(--amber-500), var(--amber-600)); text-align:center;}
+  .cta h2{color:var(--teal-900); font-size:calc(30px*var(--font-scale)); margin-bottom:14px;}
+  .cta p{color:var(--teal-900); font-size:calc(17px*var(--font-scale)); margin-bottom:28px; opacity:.9;}
+  .cta .btn-primary{background:var(--teal-900); box-shadow:none;}
+  .cta .btn-primary:hover{background:var(--teal-700);}
+
+  /* ---------- Footer ---------- */
+  footer{background:var(--teal-900); color:#DCEAE7; padding:56px 0 28px;}
+  .foot-grid{display:grid; grid-template-columns:1.4fr 1fr 1fr; gap:40px; margin-bottom:40px;}
+  footer h4{color:#fff; font-size:calc(16px*var(--font-scale)); margin-bottom:16px;}
+  footer p{font-size:calc(15px*var(--font-scale)); color:#B7CBC7; max-width:38ch;}
+  footer ul{list-style:none; display:flex; flex-direction:column; gap:10px;}
+  footer a{text-decoration:none; color:#DCEAE7; font-size:calc(15px*var(--font-scale));}
+  footer a:hover{color:var(--amber-500);}
+  .foot-bottom{border-top:1px solid rgba(255,255,255,.15); padding-top:22px; display:flex; justify-content:space-between; flex-wrap:wrap; gap:10px; font-size:calc(13px*var(--font-scale)); color:#8FA8A3;}
+  @media (max-width:760px){ .foot-grid{grid-template-columns:1fr;} }
+
+  @media (max-width:860px){
+    .hero .wrap{grid-template-columns:1fr;}
+    .hero-art{order:-1; max-width:280px; margin:0 auto;}
+    .belief .wrap{grid-template-columns:1fr;}
+  }
+
+  @media (prefers-reduced-motion:reduce){
+    *{transition:none !important; scroll-behavior:auto !important;}
+  }
+</style>
+</head>
+<body>
+
+<div class="utility-bar">
+  <div class="wrap">
+    <span>Small classes, taught live by Deaf professionals in Singapore.</span>
+    <div class="font-controls">
+      <span>Text size</span>
+      <button type="button" id="font-dec" aria-label="Decrease text size">A−</button>
+      <button type="button" id="font-reset" aria-label="Reset text size">A</button>
+      <button type="button" id="font-inc" aria-label="Increase text size">A+</button>
+    </div>
+  </div>
+</div>
+
+<header>
+  <div class="wrap nav-row">
+    <a href="#top" class="brand">
+      <svg width="44" height="44" viewBox="0 0 64 64" aria-hidden="true">
+        <circle cx="32" cy="32" r="32" fill="#1F4E5C"/>
+        <path d="M20 24c0-4 4-6 8-6 5 0 8 2.5 8 6 0 8-14 6-14 12 0 3.5 3.5 5.5 7 5.5 3 0 6-1.3 7.5-4"
+              fill="none" stroke="#FAF8F5" stroke-width="4.4" stroke-linecap="round"/>
+        <path d="M27 46c0 4 4.5 6 8.5 6 5 0 8.5-2.5 8.5-6 0-8-14.5-6-14.5-12 0-3.5 3.6-5.5 7.2-5.5 3 0 6 1.3 7.6 4"
+              fill="none" stroke="#E8A33D" stroke-width="4.4" stroke-linecap="round"/>
+      </svg>
+      <span class="brand-name">SS Sign Language<small>Academy · Singapore</small></span>
+    </a>
+    <nav id="site-nav">
+      <button class="menu-toggle" id="menu-toggle" aria-label="Toggle navigation" aria-expanded="false">☰</button>
+      <ul>
+        <li><a href="#courses">Courses</a></li>
+        <li><a href="#promotions">Promotions</a></li>
+        <li><a href="#faq">FAQ</a></li>
+        <li><a href="#belief">About</a></li>
+        <li><a href="#contact">Contact</a></li>
+      </ul>
+    </nav>
+    <a href="#courses" class="nav-cta">Register Now</a>
+  </div>
+</header>
+
+<main id="top">
+  <section class="hero">
+    <div class="wrap">
+      <div>
+        <span class="eyebrow">Beginner to Level 3 · Live over Zoom</span>
+        <h1>Learn Singapore Sign Language, taught by Deaf professionals.</h1>
+        <p class="lead">Structured, small-group SgSL courses for every stage of your journey — from your very first sign to confident, everyday conversation.</p>
+        <div class="hero-ctas">
+          <a href="#courses" class="btn-primary">See Courses &amp; Fees</a>
+          <a href="#faq" class="btn-ghost">Read the FAQ</a>
+        </div>
+      </div>
+      <div class="hero-art">
+        <div class="hero-badge">
+          <svg viewBox="0 0 64 64" aria-hidden="true">
+            <path d="M20 24c0-4 4-6 8-6 5 0 8 2.5 8 6 0 8-14 6-14 12 0 3.5 3.5 5.5 7 5.5 3 0 6-1.3 7.5-4"
+                  fill="none" stroke="#FAF8F5" stroke-width="4.4" stroke-linecap="round"/>
+            <path d="M27 46c0 4 4.5 6 8.5 6 5 0 8.5-2.5 8.5-6 0-8-14.5-6-14.5-12 0-3.5 3.6-5.5 7.2-5.5 3 0 6 1.3 7.6 4"
+                  fill="none" stroke="#E8A33D" stroke-width="4.4" stroke-linecap="round"/>
+          </svg>
+        </div>
+        <div class="float-chip chip-1"><span class="dot"></span> Max 9 per class</div>
+        <div class="float-chip chip-2"><span class="dot"></span> Deaf-led instruction</div>
+      </div>
+    </div>
+  </section>
+
+  <div class="trust-strip">
+    <div class="wrap">
+      <span>👐 Deaf-led instruction</span>
+      <span>👥 Small class sizes</span>
+      <span>📅 4 terms a year</span>
+      <span>💻 100% live over Zoom</span>
+    </div>
+  </div>
+
+  <section class="belief" id="belief">
+    <div class="wrap">
+      <div class="belief-card">
+        <p>“Everyone deserves the chance to communicate with confidence. That's why we teach SgSL the way it should be taught — by Deaf professionals, in small groups, at a pace that respects every learner.”</p>
+      </div>
+      <div>
+        <span class="eyebrow">Our belief</span>
+        <h2>Sign language, taught with authenticity.</h2>
+        <p style="color:var(--ink-600); font-size:calc(17px * var(--font-scale)); max-width:56ch;">
+          Every course is led by Deaf professionals, so you're learning SgSL the way it's actually
+          used in the Deaf community — not just vocabulary, but rhythm, expression, and culture.
+          Class sizes stay small so every learner gets seen, corrected, and encouraged.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <section class="courses" id="courses">
+    <div class="wrap">
+      <div class="section-head">
+        <span class="kicker">Courses</span>
+        <h2>Find your starting point</h2>
+        <p>Four structured courses take you from your first sign to confident conversation — all taught live, online, by Deaf professionals.</p>
+      </div>
+
+      <div class="course-grid">
+        <div class="course-card">
+          <span class="course-tag">Standalone</span>
+          <div class="course-level">Beginner</div>
+          <ul>
+            <li>5 sessions · 90 min each</li>
+            <li>No homework or assessment</li>
+            <li>Max 9 learners</li>
+            <li>Runs all year (except Sundays)</li>
+          </ul>
+          <div class="cprice">Fee: <em>TBC</em> · $50 off for family pairs</div>
+          <a href="#contact">Register interest</a>
+        </div>
+
+        <div class="course-card featured">
+          <span class="badge-pop">Most learners start here</span>
+          <span class="course-tag">Term-based</span>
+          <div class="course-level">Level 1</div>
+          <ul>
+            <li>10 sessions · 120 min each</li>
+            <li>Final assessment included</li>
+            <li>Min 6 learners to start</li>
+            <li>Jan · Apr · Jul · Oct terms</li>
+          </ul>
+          <div class="cprice">Fee: <em>TBC</em> · $20 early bird</div>
+          <a href="#contact">Register interest</a>
+        </div>
+
+        <div class="course-card">
+          <span class="course-tag">Term-based</span>
+          <div class="course-level">Level 2</div>
+          <ul>
+            <li>10 sessions · 120 min each</li>
+            <li>Requires Level 1 pass</li>
+            <li>Min 6 learners to start</li>
+            <li>Runs every term</li>
+          </ul>
+          <div class="cprice">Fee: <em>TBC</em> · $20 early bird</div>
+          <a href="#contact">Register interest</a>
+        </div>
+
+        <div class="course-card">
+          <span class="course-tag">Term-based</span>
+          <div class="course-level">Level 3</div>
+          <ul>
+            <li>10 sessions · 120 min each</li>
+            <li>Requires Level 2 pass</li>
+            <li>Min 6 learners to start</li>
+            <li>Runs every term</li>
+          </ul>
+          <div class="cprice">Fee: <em>TBC</em> · $20 early bird</div>
+          <a href="#contact">Register interest</a>
+        </div>
+      </div>
+
+      <div class="levels-note">
+        <span>📌</span>
+        <span><strong>Continuing learners, take note:</strong> Levels 1, 2, and 3 all run in every term — so if you've already passed Level 1 or 2 with us, you can jump straight into your next level without waiting.</span>
+      </div>
+    </div>
+  </section>
+
+  <section class="promo" id="promotions">
+    <div class="wrap">
+      <div class="section-head">
+        <span class="kicker" style="color:#E8A33D;">Promotions</span>
+        <h2>Current offers</h2>
+        <p>Two ways to save — pick the one that fits your course.</p>
+      </div>
+      <div class="promo-grid">
+        <div class="promo-card">
+          <div class="promo-amt">$50 off</div>
+          <h3>Family Pair Discount</h3>
+          <p><strong>Beginner Course only.</strong> Bring an immediate family member or caregiver (e.g. mother &amp; daughter) into the same class and save $50 on the second registration. Each person registers individually and joins from their own device.</p>
+        </div>
+        <div class="promo-card">
+          <div class="promo-amt">$20 off</div>
+          <h3>Early Bird Discount</h3>
+          <p><strong>Levels 1–3 only.</strong> Register at least one week before your term's start date to save $20. Not applicable to the Beginner Course.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="faq" id="faq">
+    <div class="wrap">
+      <div class="section-head">
+        <span class="kicker">FAQ</span>
+        <h2>Frequently asked questions</h2>
+        <p>Can't find your answer here? Reach out — we're happy to help.</p>
+      </div>
+      <div class="faq-list">
+        <div class="faq-item">
+          <button class="faq-q" aria-expanded="false">Do I need to complete the Beginner Course before joining Level 1?<span class="icon">+</span></button>
+          <div class="faq-a"><p>No. The Beginner Course is a standalone taster course and doesn't automatically lead into Level 1. You can register directly for Level 1, whether or not you've taken the Beginner Course.</p></div>
+        </div>
+        <div class="faq-item">
+          <button class="faq-q" aria-expanded="false">Can I join Level 2 or Level 3 directly?<span class="icon">+</span></button>
+          <div class="faq-a"><p>Yes, as long as you've passed the assessment for the preceding level — either with us in a previous term, or with equivalent prior training we can verify.</p></div>
+        </div>
+        <div class="faq-item">
+          <button class="faq-q" aria-expanded="false">Are Levels 1, 2, and 3 all available in the same term?<span class="icon">+</span></button>
+          <div class="faq-a"><p>Yes. All three levels run every term (January, April, July, October), so learners continuing from a previous term can move straight into their next level.</p></div>
+        </div>
+        <div class="faq-item">
+          <button class="faq-q" aria-expanded="false">How does the family discount work?<span class="icon">+</span></button>
+          <div class="faq-a"><p>The $50 discount applies only to the Beginner Course, when an immediate family member or caregiver joins the same class. Both participants register individually from separate devices, and both count toward the class size.</p></div>
+        </div>
+        <div class="faq-item">
+          <button class="faq-q" aria-expanded="false">How does the early bird discount work?<span class="icon">+</span></button>
+          <div class="faq-a"><p>Register at least one week before a Level 1–3 term starts to save $20. This applies to Levels 1–3 only — it's not available for the Beginner Course.</p></div>
+        </div>
+        <div class="faq-item">
+          <button class="faq-q" aria-expanded="false">Can I combine the family discount and the early bird discount?<span class="icon">+</span></button>
+          <div class="faq-a"><p>No — the family discount is Beginner-only and the early bird discount is Levels 1–3 only, so the two can't be applied to the same registration.</p></div>
+        </div>
+        <div class="faq-item">
+          <button class="faq-q" aria-expanded="false">What equipment do I need?<span class="icon">+</span></button>
+          <div class="faq-a"><p>A laptop or desktop with a large screen, stable WiFi, and Zoom installed. Tablets and phones aren't recommended, as screen size affects visual clarity during instruction.</p></div>
+        </div>
+        <div class="faq-item">
+          <button class="faq-q" aria-expanded="false">Who teaches the courses?<span class="icon">+</span></button>
+          <div class="faq-a"><p>All courses are taught by Deaf professionals, ensuring authentic, high-quality SgSL instruction.</p></div>
+        </div>
+        <div class="faq-item">
+          <button class="faq-q" aria-expanded="false">What happens if a class doesn't reach the minimum number of learners?<span class="icon">+</span></button>
+          <div class="faq-a"><p>The Beginner Course needs 5 learners and Levels 1–3 need 6. If the minimum isn't met, we'll be in touch about your options ahead of the start date.</p></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="cta" id="contact">
+    <div class="wrap">
+      <h2>Ready to sign up with confidence?</h2>
+      <p>Small classes. Deaf-led instruction. A course for every stage of your journey.</p>
+      <a href="mailto:hello@sssignlanguage.sg" class="btn-primary">Email Us to Register</a>
+    </div>
+  </section>
+</main>
+
+<footer>
+  <div class="wrap">
+    <div class="foot-grid">
+      <div>
+        <h4>SS Sign Language Academy</h4>
+        <p>Structured Singapore Sign Language courses, taught live by Deaf professionals — from your first sign to confident conversation.</p>
+      </div>
+      <div>
+        <h4>Explore</h4>
+        <ul>
+          <li><a href="#courses">Courses</a></li>
+          <li><a href="#promotions">Promotions</a></li>
+          <li><a href="#faq">FAQ</a></li>
+        </ul>
+      </div>
+      <div>
+        <h4>Contact</h4>
+        <ul>
+          <li><a href="mailto:hello@sssignlanguage.sg">hello@sssignlanguage.sg</a></li>
+          <li><a href="#top">Singapore</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="foot-bottom">
+      <span>© 2026 SS Sign Language Academy. All rights reserved.</span>
+      <span>Placeholder content — replace fees, email, and policies before publishing.</span>
+    </div>
+  </div>
+</footer>
+
+<script>
+  // Mobile nav toggle
+  const menuToggle = document.getElementById('menu-toggle');
+  const siteNav = document.getElementById('site-nav');
+  menuToggle.addEventListener('click', () => {
+    const isOpen = siteNav.classList.toggle('open');
+    menuToggle.setAttribute('aria-expanded', isOpen);
+  });
+  siteNav.querySelectorAll('a').forEach(a => a.addEventListener('click', () => {
+    siteNav.classList.remove('open');
+    menuToggle.setAttribute('aria-expanded', 'false');
+  }));
+
+  // Font size controls
+  const root = document.documentElement;
+  let scale = 1;
+  const clamp = v => Math.min(1.3, Math.max(0.85, v));
+  document.getElementById('font-inc').addEventListener('click', () => {
+    scale = clamp(scale + 0.1);
+    root.style.setProperty('--font-scale', scale);
+  });
+  document.getElementById('font-dec').addEventListener('click', () => {
+    scale = clamp(scale - 0.1);
+    root.style.setProperty('--font-scale', scale);
+  });
+  document.getElementById('font-reset').addEventListener('click', () => {
+    scale = 1;
+    root.style.setProperty('--font-scale', scale);
+  });
+
+  // FAQ accordion
+  document.querySelectorAll('.faq-item').forEach(item => {
+    const btn = item.querySelector('.faq-q');
+    const ans = item.querySelector('.faq-a');
+    btn.addEventListener('click', () => {
+      const isOpen = item.classList.contains('open');
+      document.querySelectorAll('.faq-item.open').forEach(o => {
+        if (o !== item) {
+          o.classList.remove('open');
+          o.querySelector('.faq-q').setAttribute('aria-expanded', 'false');
+          o.querySelector('.faq-a').style.maxHeight = null;
+        }
+      });
+      item.classList.toggle('open', !isOpen);
+      btn.setAttribute('aria-expanded', String(!isOpen));
+      ans.style.maxHeight = !isOpen ? ans.scrollHeight + 'px' : null;
+    });
+  });
+</script>
+
+</body>
+</html>
